@@ -1,34 +1,104 @@
-import styles from "../styles/Home.module.css";
-import { useState, useEffect } from "react";
+import { createRef, useEffect, useRef } from "react";
 
-/**
- * @TODO
- * Should receive chars from user input
- * */
-const Word = ({ userInput }: any) => {
-  // Set react component state with those words
-  const [guessed, setWords] = useState(userInput);
 
-  // Component state has changed
+const elemRefs: any[] = [];
+
+// Autotab
+const autoTab = (e: any) => {
+  const BACKSPACE_KEY = 8;
+  const DELETE_KEY = 46;
+  let tabindex = e.target.getAttribute('dataIndex');
+  tabindex = Number(tabindex);
+  let elem = null;
+  if (e.keyCode === BACKSPACE_KEY) {
+    elem = tabindex > 0 && elemRefs[tabindex - 1];
+
+  } else if (e.keyCode !== DELETE_KEY) {
+    elem = tabindex < elemRefs.length - 1 && elemRefs[tabindex + 1];
+    console.log('tabindex', tabindex, ' element ', elem);
+  }
+  if (elem) {
+    elem.current.focus();
+  }
+};
+
+const Char = (props: any) => {
+  const ref = createRef();
+  elemRefs.push(ref);
+  return (
+    <input
+      className="p-2 m-2 w-12 h-12 border border-indigo-600 justify-center rounded-md"
+      // dataIndex={props.index}
+      // ref={ref}
+      maxLength={1}
+      value={props.startingChar[0]}
+    // onKeyUp={props.autoTab}
+    />
+  );
+};
+
+
+const Word = ({ length, startingChar }: any) => {
+  // Create an array of a specified length
+  let word = Array(length).join(".").split(".");
+
+
+
   useEffect(() => {
-    setWords(userInput);
-  }, [userInput]);
+    // Replace N number of starting chars
+    for (let i = 0; i < startingChar.length; i++) {
+      word[i] = startingChar[i];
+    }
+  })
+
+  const handleKeyPress = (e: any) => {
+
+
+    let key = e.keyCode ? e.keyCode : e.which;
+    console.log('Key pressed ', key);
+
+    // Enter key pressed
+    if (key === 13) {
+      console.log(e.key);
+      const form = e.target.form;
+      const index = [...form].indexOf(e.target);
+      form.elements[index + 1].focus();
+      e.preventDefault();
+      console.log('Enter pressed');
+    }
+    // Backspace action to go to previous field
+    if (key === 8) {
+      console.log(e.key);
+      const form = e.target.form;
+      const index = [...form].indexOf(e.target);
+      form.elements[index - 1].focus();
+      e.preventDefault();
+      console.log('Backspace pressed');
+    }
+  }
 
   return (
     <>
-      <div className={styles.grid}>
-        {/* Loop over each character and render words */}
-        {guessed &&
-          guessed.map((word: string) => (
-            <>
-              <p key={word} className={styles.card}>
-                {word}
-              </p>
-            </>
-          ))}
-      </div>
+      {/* Use form to get an index of the next input field */}
+      <form>
+        {
+          word.map((m) => (
+            <input
+              key={m.length - 1}
+              className="p-2 m-2 w-12 h-12 border border-indigo-600 justify-center rounded-md"
+              // dataIndex={props.index}
+              // ref={ref}
+              maxLength={1}
+              onKeyDown={handleKeyPress}
+
+
+            />
+          ))
+        }
+      </form>
     </>
-  );
-};
+
+  )
+}
 
 export default Word;

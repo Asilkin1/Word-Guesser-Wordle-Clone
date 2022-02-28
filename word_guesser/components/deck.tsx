@@ -1,6 +1,7 @@
 import styles from "../styles/Home.module.css";
 import Word from "./word";
 import Keyboard from "./keyboard";
+import { useState } from "react";
 
 /**
  * This component:
@@ -8,43 +9,28 @@ import Keyboard from "./keyboard";
  * 2. Pass user input into the Word component
  * */
 
+
+
 const Deck = ({ wordsProp }: any) => {
-  // keyboard data
-  // All of the chars we want to use
-  const alphabet = [
-    "a",
-    "b",
-    "c",
-    "d",
-    "e",
-    "f",
-    "g",
-    "h",
-    "i",
-    "j",
-    "k",
-    "l",
-    "m",
-    "n",
-    "o",
-    "p",
-    "q",
-    "r",
-    "s",
-    "t",
-    "u",
-    "w",
-    "x",
-    "y",
-    "z",
-  ];
+  const WORD_LENGTH = 5;
+
+  const [words, setWords] = useState([<Word length={WORD_LENGTH} key={'unique'} />]);
+
+  // Add another word
+  const addMoreWords = () => {
+    setWords([...words, <Word length={WORD_LENGTH} key={'123'} />])
+  };
+
+  const chars = ['a', 'b', 'c'];
+
   return (
     <>
       <main className={styles.main}>
         {/* Here we pass chars typed by a user */}
-        <Word userInput={["A", "B", "C"]} />
+        <div className="flex">
+          <Word length={WORD_LENGTH} startingChar={chars} />
+        </div>
       </main>
-      <Keyboard allowedChars={alphabet} />
     </>
   );
 };
