@@ -1,19 +1,29 @@
+import { MutableRefObject } from "react";
 import styles from "../styles/Home.module.css";
+import Keyboard  from 'react-simple-keyboard';
+import "react-simple-keyboard/build/css/index.css";
 
-const Keyboard = ({ allowedChars }: any) => {
+interface IProps {
+  onChange: (input: string) => void;
+  keyboardRef: MutableRefObject<Keyboard>;
+}
+
+const KeyboardWrapper = ({ allowedChars }: any, ) => {
   // set char constraints
   const setAllowedChars = () => {
     return true;
   };
 
-  // Update
+  const onKeyPress = (button: string) => {
+    console.log(button);
+  }
 
   return (
     //  Keyboard css and html coming here
     <>
-      <p className="bg-slate-300 border-2 border-rose-600">sdsdsdfd</p>
+    <Keyboard onKeyPress={onKeyPress}/>
     </>
   );
 };
 
-export default Keyboard;
+export default KeyboardWrapper;
