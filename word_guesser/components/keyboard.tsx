@@ -6,7 +6,7 @@ interface IProps {
   keyboardRef: typeof Keyboard;
 }
 
-const KeyboardWrapper = ({ allowedChars }: any,) => {
+const KeyboardWrapper = ({ }: any,) => {
 
   // Keyboard layout can set character constraints
   const layout = {
@@ -20,7 +20,6 @@ const KeyboardWrapper = ({ allowedChars }: any,) => {
     }
   }
 
-
   const onKeyPress = (button: string) => {
     console.log(button);
   }
@@ -29,15 +28,18 @@ const KeyboardWrapper = ({ allowedChars }: any,) => {
   return (
     //  Keyboard css and html coming here
     <>
-      <div className="flex p-2 m-2 justify-center content-center">
-        <Keyboard
-          onKeyPress={onKeyPress}
-          layout={layout.layout}
-          physicalKeyboardHighlight={true}
-          physicalKeyboardHighlightTextColor={'white'}
-          physicalKeyboardHighlightBgColor={"red"}
-          onInit={(keyboard) => console.log("simple-keyboard initialized", keyboard)}
-        />
+      <div className="flex p-2 m-auto max-w-md items-center">
+        <div className="flex flex-1">
+          <Keyboard
+            onKeyPress={onKeyPress}
+            layout={layout.layout}
+            physicalKeyboardHighlight={true}
+            physicalKeyboardHighlightTextColor={'white'}
+            physicalKeyboardHighlightBgColor={"red"}
+            onInit={(keyboard) => console.log("simple-keyboard initialized", keyboard)}
+          />
+        </div>
+
       </div>
     </>
   );

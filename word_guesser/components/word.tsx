@@ -40,59 +40,61 @@ const Char = (props: any) => {
 };
 
 
-const Word = ({ length, startingChar }: any) => {
+const Word = ({ chars }: any) => {
   // Create an array of a specified length
-  let word = Array(length).join(".").split(".");
+  // let word = Array(length).join(".").split(".");
 
 
 
-  useEffect(() => {
-    // Replace N number of starting chars
-    for (let i = 0; i < startingChar.length; i++) {
-      word[i] = startingChar[i];
-    }
-  })
+  // useEffect(() => {
+  //   // Replace N number of starting chars
+  //   for (let i = 0; i < startingChar.length; i++) {
+  //     word[i] = startingChar[i];
+  //   }
+  // })
 
-  const handleKeyPress = (e: any) => {
+  // const handleKeyPress = (e: any) => {
 
-    let key = e.keyCode ? e.keyCode : e.which;
-    console.log('Key pressed ', key);
-    const form = e.target.form;
+  //   let key = e.keyCode ? e.keyCode : e.which;
+  //   console.log('Key pressed ', key);
+  //   const form = e.target.form;
 
 
-    // Enter key pressed
-    if (key === 13) {
-      const index = [...form].indexOf(e.target);
-      form.elements[index].focus();
-      console.log('Current index: ', index);
-      console.log(e.key);
-      // e.preventDefault();
-      console.log('Enter pressed');
-    }
-    // Backspace action to go to previous field
-    if (key === 8) {
-      const index = [...form].indexOf(e.target);
-      form.elements[index].focus();
-      console.log(e.key);
-      // e.preventDefault();
-      console.log('Backspace pressed');
-    }
+  //   // Enter key pressed
+  //   if (key === 13) {
+  //     const index = [...form].indexOf(e.target);
+  //     form.elements[index].focus();
+  //     console.log('Current index: ', index);
+  //     console.log(e.key);
+  //     // e.preventDefault();
+  //     console.log('Enter pressed');
+  //   }
+  //   // Backspace action to go to previous field
+  //   if (key === 8) {
+  //     const index = [...form].indexOf(e.target);
+  //     form.elements[index].focus();
+  //     console.log(e.key);
+  //     // e.preventDefault();
+  //     console.log('Backspace pressed');
+  //   }
 
-  }
+  // }
+  console.log('Chars passed', chars, 'type', typeof chars);
 
   return (
     <>
       {/* Use form to get an index of the next input field */}
       <form>
         {
-          word.map((m) => (
+          chars.split('').map((c) => (
             <input
-              key={m.length - 1}
-              className="p-2 m-2 w-12 h-12 border border-indigo-600 justify-center rounded-md"
+              key={c.length - 1}
+              className="p-2 m-2 w-12 h-12 border border-grey-500 justify-center rounded-md"
               // dataIndex={props.index}
               // ref={ref}
+              value={c}
               maxLength={1}
-              onKeyDown={handleKeyPress}
+
             />
           ))
         }

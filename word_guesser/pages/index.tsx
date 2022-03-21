@@ -11,14 +11,14 @@ const Home: NextPage = () => {
   const [input, setInput] = useState('')
 
   return (
-    <div className='h-full'>
+    <div className='h-full m-20'>
       <Head>
         <title>Word Guesser</title>
         <meta name="description" content="novel word guessing game" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <h1 className={styles.title}>Welcome to Word Guesser!</h1>
-      {/* words comes here */}
+      <h1 className="text-center text-slate-500 p-10 text-2xl">Welcome to Word Guesser!</h1>
+      {/* Master component */}
       <Master />
 
 
