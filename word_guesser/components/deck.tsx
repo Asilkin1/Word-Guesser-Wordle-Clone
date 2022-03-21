@@ -30,6 +30,7 @@ const Deck = ({ wordsProp }: any) => {
         <div className="flex">
           <Word length={WORD_LENGTH} startingChar={chars} />
         </div>
+
       </main>
     </>
   );

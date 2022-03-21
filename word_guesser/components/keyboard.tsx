@@ -1,27 +1,44 @@
-import { MutableRefObject } from "react";
-import styles from "../styles/Home.module.css";
-import Keyboard  from 'react-simple-keyboard';
+import Keyboard from 'react-simple-keyboard';
 import "react-simple-keyboard/build/css/index.css";
 
 interface IProps {
   onChange: (input: string) => void;
-  keyboardRef: MutableRefObject<Keyboard>;
+  keyboardRef: typeof Keyboard;
 }
 
-const KeyboardWrapper = ({ allowedChars }: any, ) => {
-  // set char constraints
-  const setAllowedChars = () => {
-    return true;
-  };
+const KeyboardWrapper = ({ allowedChars }: any,) => {
+
+  // Keyboard layout can set character constraints
+  const layout = {
+    layout: {
+      'default': [
+
+        'q w e r t y u i o p',
+        'a s d f g h j k l',
+        'z x c v b n m'
+      ],
+    }
+  }
+
 
   const onKeyPress = (button: string) => {
     console.log(button);
   }
 
+
   return (
     //  Keyboard css and html coming here
     <>
-    <Keyboard onKeyPress={onKeyPress}/>
+      <div className="flex p-2 m-2 justify-center content-center">
+        <Keyboard
+          onKeyPress={onKeyPress}
+          layout={layout.layout}
+          physicalKeyboardHighlight={true}
+          physicalKeyboardHighlightTextColor={'white'}
+          physicalKeyboardHighlightBgColor={"red"}
+          onInit={(keyboard) => console.log("simple-keyboard initialized", keyboard)}
+        />
+      </div>
     </>
   );
 };

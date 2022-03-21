@@ -1,3 +1,5 @@
+import { fromPairs } from "lodash";
+import { format } from "path/posix";
 import { createRef, useEffect, useRef } from "react";
 
 
@@ -53,28 +55,29 @@ const Word = ({ length, startingChar }: any) => {
 
   const handleKeyPress = (e: any) => {
 
-
     let key = e.keyCode ? e.keyCode : e.which;
     console.log('Key pressed ', key);
+    const form = e.target.form;
+
 
     // Enter key pressed
     if (key === 13) {
-      console.log(e.key);
-      const form = e.target.form;
       const index = [...form].indexOf(e.target);
-      form.elements[index + 1].focus();
-      e.preventDefault();
+      form.elements[index].focus();
+      console.log('Current index: ', index);
+      console.log(e.key);
+      // e.preventDefault();
       console.log('Enter pressed');
     }
     // Backspace action to go to previous field
     if (key === 8) {
-      console.log(e.key);
-      const form = e.target.form;
       const index = [...form].indexOf(e.target);
-      form.elements[index - 1].focus();
-      e.preventDefault();
+      form.elements[index].focus();
+      console.log(e.key);
+      // e.preventDefault();
       console.log('Backspace pressed');
     }
+
   }
 
   return (
@@ -90,8 +93,6 @@ const Word = ({ length, startingChar }: any) => {
               // ref={ref}
               maxLength={1}
               onKeyDown={handleKeyPress}
-
-
             />
           ))
         }

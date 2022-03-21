@@ -2,9 +2,8 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
 import styles from "../styles/Home.module.css";
-import Deck from "../components/deck";
-import KeyboardWrapper from "../components/keyboard";
 import { useRef, useState } from "react";
+import Master from "../components/master";
 
 const Home: NextPage = () => {
 
@@ -20,8 +19,8 @@ const Home: NextPage = () => {
       </Head>
       <h1 className={styles.title}>Welcome to Word Guesser!</h1>
       {/* words comes here */}
-      <Deck />
-      <KeyboardWrapper keyoardRef={keyboard} />
+      <Master />
+
 
       <footer className={styles.footer}></footer>
     </div>
