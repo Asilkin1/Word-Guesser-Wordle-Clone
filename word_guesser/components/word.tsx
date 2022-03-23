@@ -1,96 +1,39 @@
-import { createRef, useEffect, useRef } from "react";
+import { fromPairs, values } from "lodash";
+import { format } from "path/posix";
+import { createRef, useEffect, useRef, useState } from "react";
 
+const Word = ({ chars }: any) => {
+  // Keep what user have entered
+  const [userInput, setUserInput] = useState(null);
+  const [toGuess, setGuessed] = useState(chars);
 
-const elemRefs: any[] = [];
+  console.log(chars);
 
-// Autotab
-const autoTab = (e: any) => {
-  const BACKSPACE_KEY = 8;
-  const DELETE_KEY = 46;
-  let tabindex = e.target.getAttribute('dataIndex');
-  tabindex = Number(tabindex);
-  let elem = null;
-  if (e.keyCode === BACKSPACE_KEY) {
-    elem = tabindex > 0 && elemRefs[tabindex - 1];
+  // Handle user input
+  const handleUserInput = (e) => {
 
-  } else if (e.keyCode !== DELETE_KEY) {
-    elem = tabindex < elemRefs.length - 1 && elemRefs[tabindex + 1];
-    console.log('tabindex', tabindex, ' element ', elem);
+    // Try to replace empty space
+    setGuessed(toGuess[0].replace(' ', e.target.value))
   }
-  if (elem) {
-    elem.current.focus();
-  }
-};
-
-const Char = (props: any) => {
-  const ref = createRef();
-  elemRefs.push(ref);
-  return (
-    <input
-      className="p-2 m-2 w-12 h-12 border border-indigo-600 justify-center rounded-md"
-      // dataIndex={props.index}
-      // ref={ref}
-      maxLength={1}
-      value={props.startingChar[0]}
-    // onKeyUp={props.autoTab}
-    />
-  );
-};
-
-
-const Word = ({ length, startingChar }: any) => {
-  // Create an array of a specified length
-  let word = Array(length).join(".").split(".");
-
-
 
   useEffect(() => {
-    // Replace N number of starting chars
-    for (let i = 0; i < startingChar.length; i++) {
-      word[i] = startingChar[i];
-    }
-  })
 
-  const handleKeyPress = (e: any) => {
+  }, [])
 
-
-    let key = e.keyCode ? e.keyCode : e.which;
-    console.log('Key pressed ', key);
-
-    // Enter key pressed
-    if (key === 13) {
-      console.log(e.key);
-      const form = e.target.form;
-      const index = [...form].indexOf(e.target);
-      form.elements[index + 1].focus();
-      e.preventDefault();
-      console.log('Enter pressed');
-    }
-    // Backspace action to go to previous field
-    if (key === 8) {
-      console.log(e.key);
-      const form = e.target.form;
-      const index = [...form].indexOf(e.target);
-      form.elements[index - 1].focus();
-      e.preventDefault();
-      console.log('Backspace pressed');
-    }
-  }
+  console.log('Chars passed', chars, 'type', typeof chars);
 
   return (
     <>
       {/* Use form to get an index of the next input field */}
       <form>
         {
-          word.map((m) => (
+          toGuess.split('').map((c) => (
             <input
-              key={m.length - 1}
-              className="p-2 m-2 w-12 h-12 border border-indigo-600 justify-center rounded-md"
-              // dataIndex={props.index}
-              // ref={ref}
+              key={c}
+              className="p-2 m-2 w-12 h-12 border border-grey-500 justify-center rounded-md"
+              value={c}
+              onChange={(e) => handleUserInput(e)}
               maxLength={1}
-              onKeyDown={handleKeyPress}
-
 
             />
           ))
