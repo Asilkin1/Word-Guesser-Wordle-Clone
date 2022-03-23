@@ -5,6 +5,8 @@ import styles from "../styles/Home.module.css";
 import { useRef, useState } from "react";
 import Master from "../components/master";
 
+
+
 const Home: NextPage = () => {
 
   const keyboard = useRef();

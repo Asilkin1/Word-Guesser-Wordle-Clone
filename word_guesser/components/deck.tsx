@@ -1,7 +1,6 @@
 import styles from "../styles/Home.module.css";
 import Word from "./word";
 import Keyboard from "./keyboard";
-import Words from "./word/words";
 import { useState } from "react";
 
 /**
