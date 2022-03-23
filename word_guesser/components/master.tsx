@@ -1,10 +1,26 @@
 import Keyboard from '../components/keyboard'
 import Deck from './deck';
+import Backend from './backend/backend';
+import path from 'path';
+
+
+
+export async function getStaticProps() {
+    const res = await fetch('../components/backend/words.txt')
+    const json = await res.json()
+
+    console.log('data from file', json);
+
+    return {
+        props: {
+            data: json,
+        },
+    }
+}
 
 export default function Master() {
 
-
-
+    const time = 20;
 
     return (
         <>

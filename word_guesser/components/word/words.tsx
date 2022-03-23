@@ -2,16 +2,16 @@
 
 import Word from "../word"
 
-export default function Words() {
+export default function Words({ wordsFromBackend }) {
 
+    // Stub for testing
     const wordsExample = [
-        'hello',
-        'hella',
-        'hellu',
-        'hellz',
-        'hellb'
+        ' ello',
+        ' ella',
+        ' ellu',
+        ' ellz',
+        ' ell '
     ]
-
 
     console.log('Words Example', wordsExample);
     return (
