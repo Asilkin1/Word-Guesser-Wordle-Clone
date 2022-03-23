@@ -1,6 +1,7 @@
 import styles from "../styles/Home.module.css";
 import Word from "./word";
 import Keyboard from "./keyboard";
+
 import { useState } from "react";
 
 /**
@@ -20,6 +21,8 @@ const Deck = ({ wordsProp }: any) => {
   const addMoreWords = () => {
     setWords([...words, <Word length={WORD_LENGTH} key={'123'} />])
   };
+
+
 
   const chars = ['a', 'b', 'c'];
 
