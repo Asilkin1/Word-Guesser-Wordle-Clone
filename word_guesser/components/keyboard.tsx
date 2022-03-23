@@ -1,4 +1,4 @@
-import { MutableRefObject } from "react";
+import React, { MutableRefObject } from "react";
 import styles from "../styles/Home.module.css";
 import Keyboard  from 'react-simple-keyboard';
 import "react-simple-keyboard/build/css/index.css";
@@ -9,13 +9,14 @@ interface IProps {
 }
 
 const KeyboardWrapper = ({ allowedChars }: any, ) => {
+  const [word, setWord] = React.useState([]);
   // set char constraints
   const setAllowedChars = () => {
     return true;
   };
 
   const onKeyPress = (button: string) => {
-    console.log(button);
+    word.push(button);
   }
 
   return (
