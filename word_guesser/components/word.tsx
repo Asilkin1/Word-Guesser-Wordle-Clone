@@ -1,5 +1,3 @@
-import { fromPairs, values } from "lodash";
-import { format } from "path/posix";
 import { createRef, useEffect, useRef, useState } from "react";
 
 const Word = ({ chars }: any) => {
@@ -16,9 +14,9 @@ const Word = ({ chars }: any) => {
     setGuessed(toGuess[0].replace(' ', e.target.value))
   }
 
-  useEffect(() => {
+  // useEffect(() => {
 
-  }, [])
+  // }, [])
 
   console.log('Chars passed', chars, 'type', typeof chars);
 

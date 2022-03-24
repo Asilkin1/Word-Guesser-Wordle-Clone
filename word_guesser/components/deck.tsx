@@ -1,5 +1,6 @@
 import styles from "../styles/Home.module.css";
 import Word from "./word";
+import Words from "./word/words";
 import Keyboard from "./keyboard";
 import { useState } from "react";
 
@@ -17,7 +18,7 @@ const Deck = ({ wordsProp }: any) => {
       <main className="flex justify-center">
         {/* Here we pass chars typed by a user */}
         <div className="flex flex-col">
-          <Words />
+          <Words key={'s'} />
         </div>
 
       </main>

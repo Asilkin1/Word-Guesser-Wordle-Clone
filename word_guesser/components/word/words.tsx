@@ -2,22 +2,28 @@
 
 import Word from "../word"
 
-export default function Words({ wordsFromBackend }) {
+import { useEffect, useState } from "react"
 
-    // Stub for testing
-    const wordsExample = [
-        ' ello',
-        ' ella',
-        ' ellu',
-        ' ellz',
-        ' ell '
-    ]
+export default function Words() {
 
-    console.log('Words Example', wordsExample);
+    // Words fetched from API saved in here
+    const [words, setWords] = useState(null);;
+
+    // Load words once on initial page request
+    useEffect(() => {
+        // Fetch words from API
+        fetch('api/words')
+            .then((res) => res.json())
+            .then((data) => {
+                // save words in the component's state
+                setWords(data);
+            })
+    }, [])
+
     return (
 
-        wordsExample.map((word) => (
-            <Word chars={word} key={word.length} />
+        words && words['word'].map((word) => (
+            <Word chars={word} key={word[0]} />
         ))
 
     )
