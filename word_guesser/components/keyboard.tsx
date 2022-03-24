@@ -1,4 +1,6 @@
-import Keyboard from 'react-simple-keyboard';
+import React, { MutableRefObject } from "react";
+import styles from "../styles/Home.module.css";
+import Keyboard  from 'react-simple-keyboard';
 import "react-simple-keyboard/build/css/index.css";
 
 interface IProps {
@@ -19,8 +21,8 @@ const KeyboardWrapper = ({ }: any,) => {
     }
   }
 
-  const onKeyPress = (button: string) => {
-    console.log(button);
+  const onKeyPress = () => {
+    console.log('key pressed');
   }
 
 
