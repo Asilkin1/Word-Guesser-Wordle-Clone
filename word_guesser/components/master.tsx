@@ -1,24 +1,46 @@
 import Keyboard from '../components/keyboard'
 import Deck from './deck';
-import Backend from './backend/backend';
-import path from 'path';
+import { useEffect, useState } from 'react';
 
-
-
-export async function getStaticProps() {
-    const res = await fetch('../components/backend/words.txt')
-    const json = await res.json()
-
-    console.log('data from file', json);
-
-    return {
-        props: {
-            data: json,
-        },
-    }
-}
 
 export default function Master() {
+
+    /**
+     * @Todo Probably need to keep a reference to keyboard here to insert user input
+     * 
+     */
+
+    // Words fetched from API saved in here
+    const [words, setWords] = useState(null);
+
+    // User should guess
+    const [useGuess, setUserGuess] = useState(null);
+
+    /**
+  * @Todo Can remove certain chars for user to figure a word
+  * 
+  */
+    const removeChar = (chars: Array<string>) => {
+        /**
+         * @TODO populate the result in the deck for user to guess
+         * chars - ['a','b','c']
+         * replace a character in chars with a blank space
+         * return - [' pple',' ook', etc]
+        */
+    }
+
+    // Load words once on initial page request
+    useEffect(() => {
+        // Fetch words from API
+        fetch(`api/words/1`)
+            .then((res) => res.json())
+            .then((data) => {
+                // save words in the component's state
+                setWords(data);
+                // 1.Call strip function
+                // 2.Set words without letters
+            })
+    }, [])
 
     const time = 20;
 
@@ -32,7 +54,7 @@ export default function Master() {
                 <div className="flex  bg-yellow-100 p-2 rounded-xl border-2 border-yellow-200 text-xl font-bold">Score:</div>
             </div>
 
-            <Deck />
+            <Deck words={words} />
 
             <Keyboard />
 

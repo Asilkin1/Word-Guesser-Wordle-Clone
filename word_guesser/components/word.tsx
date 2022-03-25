@@ -28,7 +28,7 @@ const Word = ({ chars }: any) => {
           toGuess.split('').map((c) => (
             <input
               key={c}
-              className="p-2 m-2 w-12 h-12 border border-grey-500 justify-center rounded-md"
+              className="p-2 m-2 w-12 h-12 border border-grey-500  justify-center rounded-md text-center"
               value={c}
               onChange={(e) => handleUserInput(e)}
               maxLength={1}
