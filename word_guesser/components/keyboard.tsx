@@ -1,6 +1,5 @@
 import React, { MutableRefObject } from "react";
-import styles from "../styles/Home.module.css";
-import Keyboard  from 'react-simple-keyboard';
+import Keyboard from 'react-simple-keyboard';
 import "react-simple-keyboard/build/css/index.css";
 
 interface IProps {

@@ -10,14 +10,13 @@ import { useState, useEffect } from "react";
  * 2. Needs the list of correct words from the server
  * */
 
-
-
-const Deck = ({ words }: any) => {
+const Deck = ({ words, guess }: any) => {
   // Sample words should be probably taken from api
   const sampleWords = ['pizza', 'fuzzy', 'space', 'stone', 'brick'];
-
+  console.log(guess);
   return (
     <>
+      <p>{guess}</p>
       <main className="flex justify-center m-2 p-2">
         {/* Here we pass chars typed by a user */}
         <div className="flex flex-col">

@@ -1,13 +1,17 @@
-// Holds words in the DECK
+/**
+ * 
+ * Represent a single word
+ * 
+*/
 
 import Word from "../word"
 
 export default function Words({ words }) {
 
-
     return (
 
-        words && words['word'].map((word) => (
+
+        words && words.map((word: string) => (
             <Word chars={word} key={word[0]} />
         ))
 
