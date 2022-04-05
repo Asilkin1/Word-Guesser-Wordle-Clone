@@ -2,10 +2,13 @@
 // done through Words API
 
 import type { NextPage } from "next";
-import { useState, useEffect } from "react";
+import { useState, useEffect, SyntheticEvent } from "react";
 
+type pageProps = {
+    CHARS: number
+}
 
-const Mode1: NextPage = ({ CHARS }) => {
+const Mode1: NextPage<pageProps> = ({ CHARS }) => {
 
     // Render words here
     const [guessed, setGuessed] = useState([]);
@@ -13,10 +16,15 @@ const Mode1: NextPage = ({ CHARS }) => {
     const [uniqWords, setUnique] = useState(new Set());
 
     // Correct
-    const [isCorrect, setCorrect] = useState(null);
+    const [isCorrect, setCorrect] = useState(false);
+
+    // Use to loop over the length and create input boxes
+    const [arrayForInputFields, setArrayLength] = useState([]);
+
 
     // Re-render when one of the values in the dependency array has changed
     useEffect(() => {
+        setArrayLength(new Array(CHARS).fill('a'));
 
     }, [guessed.length, uniqWords.size, isCorrect, CHARS])
 
@@ -46,12 +54,26 @@ const Mode1: NextPage = ({ CHARS }) => {
 
     }
 
-    // Handle submit button or keyboard event handler
-    function submitWord(e) {
+    function submitMultipleFields(e: any) {
+
+        let word = ''
         e.preventDefault();
-        isAWord(e.target[0].value)
-        // erase the input
-        e.target[0].value = '';
+
+        for (let i = 0; i < e.target.length; i++) {
+            word += e.target[i].value;
+        };
+
+        // Call WORD API
+        isAWord(word);
+
+        // Erase all fields
+        for (let i = 0; i < e.target.length; i++) {
+            e.target[i].value = '';
+        };
+
+        // Focus on the first letter
+        e.target[0].focus();
+
     }
 
 
@@ -60,16 +82,26 @@ const Mode1: NextPage = ({ CHARS }) => {
             <div className='h-full'>
                 <div className="text-center font-thin">
                     <h1 className="text-slate-800 p-10 text-2xl">All you can type in game mode</h1>
-                    <p className='text-xl font-bold'>#️⃣ {CHARS}</p>
                     <p>Guessed correctly:</p>
+                    <p className='text-xl font-bold'>#️⃣ {guessed.length}</p>
+
                 </div>
 
                 <ul className='flex flex-1 gap-2 justify-center'>{
                     Array.from(guessed).map((w, i) => (
-                        <li key={i} className='bg-green-200 p-2 m-2 rounded-lg'>{w}</li>
+                        <li key={i} className='bg-green-200 p-2 m-2 rounded-lg '>{w}</li>
                     ))}</ul>
-                <form className="flex justify-center" onSubmit={(e) => { submitWord(e) }}>
-                    <input className={`${isCorrect ? 'border-green-600' : 'border-red-600'} border-4 outline-none p-2 m-2 rounded-xl text-center text-xl uppercase`} placeholder="type your word" maxLength={CHARS} minLength={CHARS} />
+
+                <form className="flex justify-center" onSubmit={(e) => { submitMultipleFields(e) }}>
+
+                    {arrayForInputFields && arrayForInputFields.map((el, index) => (
+
+                        <input key={index} className={`${isCorrect ? 'border-green-600' : 'border-red-600'} border-4 outline-none p-2 m-2 rounded-xl text-center text-xl uppercase w-16`}
+                            required
+                            maxLength={1} />
+                    ))}
+                    <input type="submit" className="hidden" />
+
                 </form>
             </div>
         </>
