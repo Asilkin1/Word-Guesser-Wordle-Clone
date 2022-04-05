@@ -56,21 +56,23 @@ const Mode1: NextPage = ({ CHARS }) => {
 
 
     return (
-        <div className='h-full m-20'>
-            <p>Number of characters: {CHARS}</p>
+        <>
+            <div className='h-full'>
+                <div className="text-center font-thin">
+                    <h1 className="text-slate-800 p-10 text-2xl">All you can type in game mode</h1>
+                    <p className='text-xl font-bold'>#️⃣ {CHARS}</p>
+                    <p>Guessed correctly:</p>
+                </div>
 
-            <p>Guessed correctly:</p>
-            <ul className='flex flex-1 gap-2 '>{
-                Array.from(guessed).map((w, i) => (
-                    <li key={i} className='bg-green-200 p-2 m-2 rounded-lg'>{w}</li>
-                ))}</ul>
-            <form onSubmit={(e) => { submitWord(e) }}>
-                <input className={`${isCorrect ? 'border-green-600' : 'border-red-600'} border-4 outline-none p-2 m-2 rounded-xl text-center text-xl`} placeholder="type your word" maxLength={CHARS} minLength={CHARS} />
-
-            </form>
-
-
-        </div>
+                <ul className='flex flex-1 gap-2 justify-center'>{
+                    Array.from(guessed).map((w, i) => (
+                        <li key={i} className='bg-green-200 p-2 m-2 rounded-lg'>{w}</li>
+                    ))}</ul>
+                <form className="flex justify-center" onSubmit={(e) => { submitWord(e) }}>
+                    <input className={`${isCorrect ? 'border-green-600' : 'border-red-600'} border-4 outline-none p-2 m-2 rounded-xl text-center text-xl uppercase`} placeholder="type your word" maxLength={CHARS} minLength={CHARS} />
+                </form>
+            </div>
+        </>
     );
 };
 

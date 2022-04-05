@@ -28,20 +28,18 @@ const Home: NextPage = (words) => {
 
 
   return (
-    <div className='h-full m-20'>
+    <div className='h-full'>
       <Head>
         <title>Word Guesser</title>
         <meta name="description" content="novel word guessing game" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <h1 className="text-center text-slate-500 p-10 text-2xl">Welcome to Word Guesser!</h1>
+      <h1 className="text-center text-slate-500 p-10 text-2xl">Fill in game mode</h1>
 
       {shouldGuess && <Deck words={shouldGuess} />}
 
       <KeyboardWrapper />
 
-
-      <footer className={styles.footer}></footer>
     </div>
   );
 };
