@@ -2,13 +2,81 @@
 // done through Words API
 
 import type { NextPage } from "next";
-import { useState, useEffect, SyntheticEvent } from "react";
+import { useState, useEffect } from "react";
+import Keyboard from 'react-simple-keyboard';
 
 type pageProps = {
     CHARS: number
 }
 
 const Mode1: NextPage<pageProps> = ({ CHARS }) => {
+
+    // Keyboard layout can set character constraints
+    const layout = {
+        layout: {
+            'default': [
+                'q w e r t y u i o p',
+                'a s d f g h j k l',
+                'z x c v b n m'
+            ],
+            '3': ['w e r t y u i o p',
+                'a s d f g j k l'],
+            '4': [
+                'a s d f g h j k l',
+                'z x c v b n m'],
+            '5': ['q w y u i o p',
+                'a k l',
+                'z x c v b n m'],
+            '6': ['q w e r t',
+                'a s d h j k l',
+                'z x v n m'],
+            '7': ['q y u i o p',
+                'a s d f g h',
+                'z'],
+            '8': ['q w e r t y u i o p',
+                'a s d f g h j k l'],
+            '9': [
+                'a s d f g h j k l',
+                'z x c v b n m'],
+            '10': ['q w e u i o',
+                'a s d f g h j k',
+                'c b n m']
+        }
+    }
+
+
+    const [virtualKeyValue, setVirtualKey] = useState([]);
+    let [lettersLeft, setLeft] = useState(CHARS);
+
+    // handle virtual keyboard 
+    const onKeyPress = (button) => {
+
+        setVirtualKey([...virtualKeyValue, button])
+        console.log('typed : ', virtualKeyValue.join(''));
+
+        if (lettersLeft === 1) {
+            console.log('Word is finished');
+
+            setLeft(CHARS);
+        }
+
+    }
+
+    const onChange = (input) => {
+        console.log(input);
+        console.log('input changed: ', lettersLeft);
+
+        // setLeft(Array.from(chars).fill('a').length)
+        setLeft(lettersLeft -= 1);
+
+        if (lettersLeft === 0) {
+            setLeft(CHARS);
+            isAWord(virtualKeyValue.join(''));
+            setVirtualKey([]);
+        }
+
+    }
+
 
     // Render words here
     const [guessed, setGuessed] = useState([]);
@@ -26,7 +94,11 @@ const Mode1: NextPage<pageProps> = ({ CHARS }) => {
     useEffect(() => {
         setArrayLength(new Array(CHARS).fill('a'));
 
-    }, [guessed.length, uniqWords.size, isCorrect, CHARS])
+        // if (lettersLeft === 0) {
+        //     setLeft(CHARS);
+        // }
+
+    }, [guessed.length, uniqWords.size, isCorrect, CHARS, lettersLeft])
 
 
 
@@ -73,6 +145,7 @@ const Mode1: NextPage<pageProps> = ({ CHARS }) => {
 
         // Focus on the first letter
         e.target[0].focus();
+        setVirtualKey([]);
 
     }
 
@@ -82,9 +155,19 @@ const Mode1: NextPage<pageProps> = ({ CHARS }) => {
             <div className='h-full'>
                 <div className="text-center font-thin">
                     <h1 className="text-slate-800 p-10 text-2xl">All you can type in game mode</h1>
+                    <p>Characters to type in {CHARS}</p>
+
+
+                    {arrayForInputFields && arrayForInputFields.map((el, index) => (
+
+                        <input key={index}
+                            className={`border-gray-400 border-4 outline-none p-2 m-2 rounded-xl text-center text-xl uppercase w-16`}
+                            placeholder={'*'}
+                            disabled={true}
+                        />
+                    ))}
                     <p>Guessed correctly:</p>
                     <p className='text-xl font-bold'>#️⃣ {guessed.length}</p>
-
                 </div>
 
                 <ul className='flex flex-1 gap-2 justify-center'>{
@@ -94,16 +177,35 @@ const Mode1: NextPage<pageProps> = ({ CHARS }) => {
 
                 <form className="flex justify-center" onSubmit={(e) => { submitMultipleFields(e) }}>
 
-                    {arrayForInputFields && arrayForInputFields.map((el, index) => (
+                    {virtualKeyValue && virtualKeyValue.map((el, index) => (
 
-                        <input key={index} className={`${isCorrect ? 'border-green-600' : 'border-red-600'} border-4 outline-none p-2 m-2 rounded-xl text-center text-xl uppercase w-16`}
+                        <input key={index}
+                            className={`${isCorrect ? 'border-green-600' : 'border-red-600'} border-4 outline-none p-2 m-2 rounded-xl text-center text-xl uppercase w-16`}
                             required
-                            maxLength={1} />
+                            value={el}
+                            maxLength={1}
+                            disabled={false}
+                        />
                     ))}
                     <input type="submit" className="hidden" />
 
                 </form>
             </div>
+
+            <div className="flex p-2 m-auto max-w-md items-center">
+                <Keyboard
+                    onKeyPress={onKeyPress}
+                    onChange={onChange}
+                    layout={layout.layout}
+                    layoutName={CHARS.toString()}
+                    physicalKeyboardHighlight={true}
+                    physicalKeyboardHighlightTextColor={'white'}
+                    physicalKeyboardHighlightBgColor={"red"}
+                    onInit={(keyboard) => console.log("simple-keyboard initialized", keyboard)}
+                />
+            </div>
+
+
         </>
     );
 };
