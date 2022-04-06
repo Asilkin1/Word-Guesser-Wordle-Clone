@@ -20,8 +20,8 @@ const KeyboardWrapper = ({ }: any,) => {
     }
   }
 
-  const onKeyPress = () => {
-    console.log('key pressed');
+  const onKeyPress = (button: string) => {
+    console.log(button);
   }
 
 
