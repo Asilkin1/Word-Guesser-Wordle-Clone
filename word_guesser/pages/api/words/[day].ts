@@ -21,7 +21,15 @@ export default function handler(
   */
   const wordSchedule = {
     '1': ['abaca','aalii','saber','cable','facer'],
-    '2': []
+    '2': ['acrid','actor','acute','adage','adapt'],
+    '3': ['adept','admin','admit','adobe','adopt'],
+    '4': ['adore','adorn','adult','affix','afire'],
+    '5': ['afoot','afoul','after','again','agape'],
+    '6': ['agate','agent','agile','aging','aglow'],
+    '7': ['agony','agora','agree','ahead','aider'],
+    '8': ['aisle','alarm','album','alert','algae'],
+    '9': ['alibi','alien','align','alike','alive'],
+    '10': ['allay','alley','allot','allow','alloy']
   }
 
 

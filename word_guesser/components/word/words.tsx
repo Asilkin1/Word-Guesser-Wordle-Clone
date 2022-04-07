@@ -10,9 +10,8 @@ export default function Words({ words }) {
 
     return (
 
-
-        words && words.map((word: string) => (
-            <Word chars={word} key={word[0]} />
+        words && words.map((word: string, index) => (
+            <Word chars={word} key={index} />
         ))
 
     )

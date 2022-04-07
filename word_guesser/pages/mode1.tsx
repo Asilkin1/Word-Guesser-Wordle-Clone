@@ -192,7 +192,7 @@ const Mode1: NextPage<pageProps> = ({ CHARS }) => {
                 </form>
             </div>
 
-            <div className="flex p-2 m-auto max-w-md items-center">
+            <div className="flex p-4 m-auto max-w-md items-center">
                 <Keyboard
                     onKeyPress={onKeyPress}
                     onChange={onChange}
