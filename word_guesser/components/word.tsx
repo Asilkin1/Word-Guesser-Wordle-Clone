@@ -16,32 +16,22 @@ const Word = ({ chars }: any) => {
 
       if (found[0]['word']) {
 
-        console.log(found[0]['word']);
-        e.target.style.visibility = 'hidden'
+        // Highligh the whole row in green
+        for (let i = 0; i < e.target.children.length; i++)
+          e.target.children[i].className += ' bg-green-200 transition duration-700 ease-in-out';
       }
+
     }
     // Incorrect word case
-    catch (e) {
+    catch (error) {
       console.log('word is not found');
+
+      for (let i = 0; i < e.target.children.length; i++)
+        e.target.children[i].className += ' bg-red-200 opacity-50 transition duration-700 ease-in-out transition-opacity transition-shadow';
     }
 
   }
 
-
-  // Handle user input
-  const handleUserInput = (e) => {
-
-
-    toGuess.split('').map((w, index) => {
-      const oldString = w.charAt(index);
-      let newString = w[index] === ' ' ? w[index].replace(w[index], e.target.value) : w[index];
-      console.log(oldString);
-    })
-
-    console.log();
-
-
-  }
 
   function submitWords(e) {
     let word = '';
@@ -50,9 +40,6 @@ const Word = ({ chars }: any) => {
     for (let i = 0; i < e.target.length; i++) {
       word += e.target[i].value;
     };
-
-    console.log(word);
-
 
     setGuessed(word);
     isAWord(word, e)
@@ -67,12 +54,12 @@ const Word = ({ chars }: any) => {
           toGuess.split('').map((c, index) => (
             <input
               key={index}
-              className="p-2 m-2 w-12 h-12 border border-grey-500  justify-center rounded-md text-center"
+              className="p-2 m-2 w-16 h-16 text-3xl justify-center rounded-md text-center font-thick outline-none focus:bg-orange-200 focus:decoration-red-500 uppercase drop-shadow-md focus:underline caret-transparent cursor-pointer"
               value={c === ' ' ? userInput : c}
+              onChange={(e) => { e.target.value !== ' ' ? console.log(e.target.value) : console.log('empty') }}
               disabled={c === ' ' ? false : true}
-              onChange={(e) => handleUserInput(e)}
               maxLength={1}
-
+              required={true}
             />
           ))
         }

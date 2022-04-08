@@ -19,11 +19,13 @@ const Mode1: NextPage<pageProps> = ({ CHARS }) => {
                 'a s d f g h j k l',
                 'z x c v b n m'
             ],
-            '3': ['w e r t y u i o p',
-                'a s d f g j k l'],
+            '3': ['w e r t l',
+                'y u i o p',
+                'a s g j k'],
             '4': [
-                'a s d f g h j k l',
-                'z x c v b n m'],
+                'a s d j k',
+                'c v b n m',
+                'i e r q l'],
             '5': ['q w y u i o p',
                 'a k l',
                 'z x c v b n m'],
@@ -38,9 +40,10 @@ const Mode1: NextPage<pageProps> = ({ CHARS }) => {
             '9': [
                 'a s d f g h j k l',
                 'z x c v b n m'],
-            '10': ['q w e u i o',
-                'a s d f g h j k',
-                'c b n m']
+            '10': [
+                'q w e u i o',
+                'a s d h j k',
+                'c b p z n m']
         }
     }
 
@@ -93,12 +96,10 @@ const Mode1: NextPage<pageProps> = ({ CHARS }) => {
     // Re-render when one of the values in the dependency array has changed
     useEffect(() => {
         setArrayLength(new Array(CHARS).fill('a'));
+        console.log('Guessed : ', guessed)
 
-        // if (lettersLeft === 0) {
-        //     setLeft(CHARS);
-        // }
 
-    }, [guessed.length, uniqWords.size, isCorrect, CHARS, lettersLeft])
+    }, [guessed.length, uniqWords.size, isCorrect, CHARS, lettersLeft, virtualKeyValue])
 
 
 
@@ -152,58 +153,92 @@ const Mode1: NextPage<pageProps> = ({ CHARS }) => {
 
     return (
         <>
-            <div className='h-full'>
+            <div className='flex flex-col flex-wrap h-full  text-orange-200 text-2xl  font-mono font-bold'>
                 <div className="text-center font-thin">
-                    <h1 className="text-slate-800 p-10 text-2xl">All you can type in game mode</h1>
+
+                    <h1 className="text-center text-orange-200 p-2 text-6xl font-mono font-bold underline decoration-dashed">All you can type in game mode</h1>
+                    <p className="">Correct:</p>
+                    <p className='font-mono tracking-widest py-2 text-6xl'>🏆 {guessed.length}</p>
+                    <div className="flex flex-1">
+                        <div className={`flex  w-${CHARS * 3} p-2 gap-1 justify-center `}>
+
+                            {
+                                guessed.map((w, i) => (
+
+                                    <div key={i + CHARS} className='flex flex-1 p-2 gap-0.5'>
+                                        {
+                                            [...w].map((char) => (
+
+                                                <input key={i + 'sss'}
+
+                                                    value={char}
+                                                    disabled
+                                                    className={`flex w-10 h-10 border-2 border-green-200 bg-green-100  text-center rounded-lg drop-shadow-md opacity-75 font-bold text-xl text-orange-800 `} />
+                                            ))
+                                        }
+
+                                    </div>
+
+                                ))}
+
+
+                        </div>
+                    </div>
+
                     <p>Characters to type in {CHARS}</p>
 
 
-                    {arrayForInputFields && arrayForInputFields.map((el, index) => (
+                    {virtualKeyValue.length !== 0 ? (
+                        <form className="flex justify-center" onSubmit={(e) => { submitMultipleFields(e) }}>
 
-                        <input key={index}
-                            className={`border-gray-400 border-4 outline-none p-2 m-2 rounded-xl text-center text-xl uppercase w-16`}
-                            placeholder={'*'}
-                            disabled={true}
+                            {virtualKeyValue && virtualKeyValue.map((el, index) => (
+
+                                <input key={index}
+                                    className={`p-2 m-2 w-16 h-16 text-3xl justify-center rounded-md text-center font-thick outline-none focus:bg-orange-200 focus:decoration-red-500 uppercase drop-shadow-md focus:underline caret-transparent cursor-pointer`}
+                                    required
+                                    value={el}
+                                    maxLength={1}
+                                    disabled={true}
+                                />
+                            ))}
+                            <input type="submit" className="hidden" />
+
+                        </form>
+                    ) : (
+                        arrayForInputFields && arrayForInputFields.map((el, index) => (
+
+                            <input key={index}
+                                className={`p-2 m-2 w-16 h-16 text-3xl justify-center rounded-md text-center font-thick outline-none focus:bg-orange-200 focus:decoration-red-500 uppercase drop-shadow-md focus:underline caret-transparent cursor-pointer`}
+                                value={'?'}
+                                disabled={true}
+                            />
+                        ))
+                    )}
+
+
+                    <div className="flex p-4 m-auto max-w-md items-center text-slate-700 text-3xl">
+                        <Keyboard
+                            onKeyPress={onKeyPress}
+                            onChange={onChange}
+                            layout={layout.layout}
+
+                            layoutName={CHARS.toString()}
+                            physicalKeyboardHighlight={true}
+                            physicalKeyboardHighlightTextColor={'white'}
+                            physicalKeyboardHighlightBgColor={"red"}
+                            onInit={(keyboard) => console.log("simple-keyboard initialized", keyboard)}
                         />
-                    ))}
-                    <p>Guessed correctly:</p>
-                    <p className='text-xl font-bold'>#️⃣ {guessed.length}</p>
+                    </div>
+
+
                 </div>
 
-                <ul className='flex flex-1 gap-2 justify-center'>{
-                    Array.from(guessed).map((w, i) => (
-                        <li key={i} className='bg-green-200 p-2 m-2 rounded-lg '>{w}</li>
-                    ))}</ul>
 
-                <form className="flex justify-center" onSubmit={(e) => { submitMultipleFields(e) }}>
 
-                    {virtualKeyValue && virtualKeyValue.map((el, index) => (
 
-                        <input key={index}
-                            className={`${isCorrect ? 'border-green-600' : 'border-red-600'} border-4 outline-none p-2 m-2 rounded-xl text-center text-xl uppercase w-16`}
-                            required
-                            value={el}
-                            maxLength={1}
-                            disabled={false}
-                        />
-                    ))}
-                    <input type="submit" className="hidden" />
-
-                </form>
             </div>
 
-            <div className="flex p-4 m-auto max-w-md items-center">
-                <Keyboard
-                    onKeyPress={onKeyPress}
-                    onChange={onChange}
-                    layout={layout.layout}
-                    layoutName={CHARS.toString()}
-                    physicalKeyboardHighlight={true}
-                    physicalKeyboardHighlightTextColor={'white'}
-                    physicalKeyboardHighlightBgColor={"red"}
-                    onInit={(keyboard) => console.log("simple-keyboard initialized", keyboard)}
-                />
-            </div>
+
 
 
         </>

@@ -24,16 +24,19 @@ const Home: NextPage = (words) => {
 
   }
 
-  const removeChar = (words: any, remove: string) => {
-    /**
-     * words - ['ad','bd','cf']
-     * return - an array with removed chars
-    */
+  // Remove all vowels from words
+  const removeChar = (words: any) => {
 
     let newArray: Array<string> = [];
 
-    words.words['word'].map((word: string, index: BigInteger) => {
-      newArray.push(word.split(remove).join(' '));
+    const vowels = {
+      'a': ' ', 'e': ' ', 'i': ' ',
+      'o': ' ', 'u': ' ', 'y': ' '
+    };
+
+    words.words['word'].map((word, i) => {
+      newArray.push(word.replace(/[eyuioa]/g, m => vowels[m]));
+
     })
 
     return newArray;
@@ -44,45 +47,22 @@ const Home: NextPage = (words) => {
   const shouldGuess = removeChar(words, 'a')
 
   return (
-    <div className='h-full'>
+    <div className=''>
       <Head>
         <title>Word Guesser</title>
         <meta name="description" content="novel word guessing game" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <h1 className="text-center text-slate-500 p-10 text-2xl">Fill in game mode</h1>
+      <h1 className="text-center uppercase  text-orange-200 p-10 text-6xl font-mono font-bold underline  decoration-wavy underline-offset-2 decoration-yellow-500 ">Fill in game mode</h1>
 
       {/* <p>{guess}</p> */}
-      <main className="flex justify-center m-2 p-2">
+      <main className="flex justify-center max-h-full">
         {/* Here we pass chars typed by a user */}
         <div className="flex flex-col">
-
-          <div className="flex flex-col justify-center items-center">
-            <h2 className='text-2xl font-sans'>Your Words</h2>
-            <div className='flex flex-col flex-auto p-2 space-around justify-center items-center bg-slate-100 border-slate-200 rounded-xl border-2'>
-              {shouldGuess.map(word => (
-                <p className="flex text-green-400 border-2 border-yellow-200">{word}</p>))}
-            </div>
-          </div>
           <Words words={shouldGuess} key={'s'} />
         </div>
 
       </main>
-      {/* Keyboard part */}
-
-      <div className="flex p-2 m-auto max-w-md items-center">
-        <div className="flex flex-1">
-          <Keyboard
-            onKeyPress={onKeyPress}
-            layout={layout.layout}
-            physicalKeyboardHighlight={true}
-            physicalKeyboardHighlightTextColor={'white'}
-            physicalKeyboardHighlightBgColor={"red"}
-            theme={"hg-theme-default myTheme1"}
-          />
-        </div>
-
-      </div>
 
     </div>
   );
