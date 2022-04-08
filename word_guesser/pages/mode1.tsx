@@ -4,6 +4,8 @@
 import type { NextPage } from "next";
 import { useState, useEffect } from "react";
 import Keyboard from 'react-simple-keyboard';
+import 'react-simple-keyboard/build/css/index.css';
+
 
 type pageProps = {
     CHARS: number
