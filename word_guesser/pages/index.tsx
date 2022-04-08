@@ -34,7 +34,7 @@ const Home: NextPage = (words) => {
       'o': ' ', 'u': ' ', 'y': ' '
     };
 
-    words.words['word'].map((word: string, i: number) => {
+    words.words.map((word: string, i: number) => {
       newArray.push(word.replace(/[eyuioa]/g, m => vowels[m]));
 
     })
@@ -59,7 +59,7 @@ const Home: NextPage = (words) => {
       <main className="flex justify-center max-h-full">
         {/* Here we pass chars typed by a user */}
         <div className="flex flex-col">
-          <Words words={shouldGuess} key={'s'} />
+          {words && <Words words={shouldGuess} key={'s'} />}
         </div>
 
       </main>
@@ -81,10 +81,25 @@ export async function getStaticProps() {
 
   const randomDay = getRandomArbitrary(1, 10);
 
-  const res = await fetch(`http://localhost:3000/api/words/${randomDay}`);
-  const words = await res.json();
+  // localhost
+  //const res = await fetch(`http://localhost:3000/api/words/${randomDay}`);
+  // Production
+  const wordSchedule = {
+    1: ['abaca', 'aalii', 'saber', 'cable', 'facer'],
+    2: ['acrid', 'actor', 'acute', 'adage', 'adapt'],
+    3: ['adept', 'admin', 'admit', 'adobe', 'adopt'],
+    4: ['adore', 'adorn', 'adult', 'affix', 'afire'],
+    5: ['afoot', 'afoul', 'after', 'again', 'agape'],
+    6: ['agate', 'agent', 'agile', 'aging', 'aglow'],
+    7: ['agony', 'agora', 'agree', 'ahead', 'aider'],
+    8: ['aisle', 'alarm', 'album', 'alert', 'algae'],
+    9: ['alibi', 'alien', 'align', 'alike', 'alive'],
+    10: ['allay', 'alley', 'allot', 'allow', 'alloy']
+  }
+  const words = wordSchedule[randomDay];
 
-  console.log('Words from backend ', words['word']);
+
+
 
   return {
     props: {
