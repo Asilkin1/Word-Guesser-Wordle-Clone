@@ -34,7 +34,7 @@ const Home: NextPage = (words) => {
       'o': ' ', 'u': ' ', 'y': ' '
     };
 
-    words.words['word'].map((word, i) => {
+    words.words['word'].map((word: string, i: number) => {
       newArray.push(word.replace(/[eyuioa]/g, m => vowels[m]));
 
     })
@@ -44,7 +44,7 @@ const Home: NextPage = (words) => {
   }
 
   // Remove any char
-  const shouldGuess = removeChar(words, 'a')
+  const shouldGuess = removeChar(words)
 
   return (
     <div className=''>
@@ -73,7 +73,7 @@ export async function getStaticProps() {
 
   // Randomize day
 
-  function getRandomArbitrary(min, max) {
+  function getRandomArbitrary(min: number, max: number) {
     min = Math.ceil(min);
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min) + min); //The maximum is exclusive and the 

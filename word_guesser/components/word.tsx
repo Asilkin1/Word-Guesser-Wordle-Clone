@@ -51,7 +51,7 @@ const Word = ({ chars }: any) => {
       {/* Use form to get an index of the next input field */}
       <form onSubmit={(e) => { submitWords(e) }}>
         {
-          toGuess.split('').map((c, index) => (
+          toGuess.split('').map((c: string, index: number) => (
             <input
               key={index}
               className="p-2 m-2 w-16 h-16 text-3xl justify-center rounded-md text-center font-thick outline-none focus:bg-orange-200 focus:decoration-red-500 uppercase drop-shadow-md focus:underline caret-transparent cursor-pointer"

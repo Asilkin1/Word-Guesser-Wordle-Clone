@@ -52,7 +52,7 @@ const Mode1: NextPage<pageProps> = ({ CHARS }) => {
     let [lettersLeft, setLeft] = useState(CHARS);
 
     // handle virtual keyboard 
-    const onKeyPress = (button) => {
+    const onKeyPress = (button: any) => {
 
         setVirtualKey([...virtualKeyValue, button])
         console.log('typed : ', virtualKeyValue.join(''));
@@ -65,7 +65,7 @@ const Mode1: NextPage<pageProps> = ({ CHARS }) => {
 
     }
 
-    const onChange = (input) => {
+    const onChange = (input: any) => {
         console.log(input);
         console.log('input changed: ', lettersLeft);
 
@@ -99,7 +99,7 @@ const Mode1: NextPage<pageProps> = ({ CHARS }) => {
         console.log('Guessed : ', guessed)
 
 
-    }, [guessed.length, uniqWords.size, isCorrect, CHARS, lettersLeft, virtualKeyValue])
+    }, [guessed.length, uniqWords.size, isCorrect, CHARS, lettersLeft, virtualKeyValue, guessed])
 
 
 
@@ -250,7 +250,7 @@ const Mode1: NextPage<pageProps> = ({ CHARS }) => {
 export async function getStaticProps() {
 
     // Get random number of chars
-    function getRandomArbitrary(min, max) {
+    function getRandomArbitrary(min: number, max: number) {
         min = Math.ceil(min);
         max = Math.floor(max);
         return Math.floor(Math.random() * (max - min) + min); //The maximum is exclusive and the 
