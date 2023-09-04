@@ -1,3 +1,4 @@
+An attempt to create a Wordle-like https://www.nytimes.com/games/wordle/index.html game with a little twist.
 ## Getting Started
 
 
