@@ -29,4 +29,3 @@ The `pages/api` directory is mapped to `/api/*`. Files in this directory are tre
 
 !Need to check what causing an error 
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
