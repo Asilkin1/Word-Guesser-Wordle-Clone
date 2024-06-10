@@ -1,5 +1,13 @@
 An attempt to create a Wordle-like https://www.nytimes.com/games/wordle/index.html game with a little twist.
-## Getting Started
+## Game Modes
+### Fill in game mode
+
+<img src="https://github.com/Asilkin1/SFE-2022-Final-Project/blob/main/Word_Guesser_1.png" alt="Wordle Clone" width="600"/>
+
+### All you can type in game mode
+<img src="https://github.com/Asilkin1/SFE-2022-Final-Project/blob/main/Word_Guesser_2.png" alt="Wordle Clone" width="600"/>
+
+## Development
 
 ### Run development server
 
@@ -18,7 +26,8 @@ You can start editing the page by modifying `pages/index.tsx`. The page auto-upd
 2. Create a react component with .tsx file extension(remember to export it)
 3. In /pages/index.tsx import your component
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+### Change Backend
+[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/](http://localhost:3000/api/). This endpoint can be edited in `pages/api/`.
 
 The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
 
